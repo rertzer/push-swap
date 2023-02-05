@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:35:07 by rertzer           #+#    #+#             */
-/*   Updated: 2023/02/05 15:08:56 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 17:45:43 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_psdata
 	int		*values;
 	int		*to_push;
 	char	**arg_lst;
+	char	*small_moves[12];
+	int		sm_index;
 }	t_psdata;
 
 typedef void	(*t_fun)(t_psdata *psdata);
@@ -63,6 +65,7 @@ void		ps_run_large(t_psdata *psdata);
 void		ps_run_small(t_psdata *psdata);
 void		ps_run_two(t_psdata *psdata);
 void		ps_run_three(t_psdata *psdata);
+void		ps_simplify(t_psdata *psdata);
 /* quartile */
 void		ps_quartile(t_psdata *psdata);
 void		ps_mediane(t_psdata *psdata);
@@ -127,4 +130,5 @@ void		ps_stack_clear(t_stack **stack);
 /* print.c */
 void		ps_print(t_psdata *psdata);
 void		ps_stack_print(t_stack *stack);
+void		ps_ops_print(t_psdata *psdata, char *str);
 #endif

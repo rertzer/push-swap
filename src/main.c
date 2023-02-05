@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:45:32 by rertzer           #+#    #+#             */
-/*   Updated: 2023/02/05 13:52:05 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 17:21:49 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ps_init_psdata(t_psdata *psdata)
 {
+	int	i;
+
 	psdata->stack_a = NULL;
 	psdata->stack_b = NULL;
 	psdata->size_a = 0;
@@ -28,6 +30,9 @@ void	ps_init_psdata(t_psdata *psdata)
 	psdata->values = NULL;
 	psdata->to_push = NULL;
 	psdata->arg_lst = NULL;
+	i = -1;
+	while (++i < 12)
+		psdata->small_moves[i] = NULL;
 }
 
 void	ps_stack_already_sorted(t_psdata *psdata)

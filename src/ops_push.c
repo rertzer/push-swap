@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:16:55 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/09 14:36:14 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 17:27:31 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static void	ps_ops_push(t_stack **stack_a, t_stack **stack_b)
 void	ps_ops_pa(t_psdata *psdata)
 {
 	ps_ops_push(&(psdata->stack_b), &(psdata->stack_a));
-	ft_printf("pa\n");
+	ps_ops_print(psdata, "pa");
 }
 
 void	ps_ops_pb(t_psdata *psdata)
 {
 	ps_ops_push(&(psdata->stack_a), &(psdata->stack_b));
-	ft_printf("pb\n");
+	ps_ops_print(psdata, "pb");
 }
