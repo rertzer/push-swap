@@ -15,7 +15,6 @@ OK
 $> cat numbers
 5 1 3 2 4
 $> cat moves
->>>>>>> 551808e284575328e7acb539a92e3208d7dfaece
 pb
 pb
 sa
