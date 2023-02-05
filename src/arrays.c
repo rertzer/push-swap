@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:21:39 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/14 11:12:42 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 15:24:17 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@ int	*ps_get_sorted_array(t_psdata *psdata, int *size)
 	int	i;
 	int	j;
 	int	*tpv;
+	t_stack	*tmp;
 
 	*size = ps_nb_to_push(psdata);
+	tmp = psdata->stack_a;
 	tpv = ps_malloc_array(psdata, *size);
 	i = -1;
 	j = -1;
 	while (++i < psdata->size)
 	{
 		if (psdata->to_push[i])
-			tpv[++j] = psdata->values[i];
+			tpv[++j] = tmp->nb;
+		tmp = tmp->next;
 	}
 	ps_sort_array(tpv, *size);
 	return (tpv);
@@ -59,20 +62,11 @@ int	*ps_malloc_array(t_psdata *psdata, int size)
 void	ps_to_array(t_psdata *psdata)
 {
 	int		i;
-	t_stack	*tmp;
 
-	psdata->values = ps_malloc_array(psdata, psdata->size);
-	psdata->sorted = ps_malloc_array(psdata, psdata->size);
 	psdata->to_push = ps_malloc_array(psdata, psdata->size);
-	tmp = psdata->stack_a;
 	i = -1;
 	while (++i < psdata->size)
-	{
-		psdata->values[i] = tmp->nb;
-		psdata->sorted[i] = tmp->nb;
-		psdata->to_push[i] = 1;
-		tmp = tmp->next;
-	}
+		psdata->to_push[i] = 0;
 }
 
 void	ps_sort_array(int *tab, int size)

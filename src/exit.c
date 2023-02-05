@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:46:05 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/14 11:00:22 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 13:51:37 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,8 @@ void	ps_quit(t_psdata *psdata, int error)
 
 void	ps_flush_arrays(t_psdata *psdata)
 {
-	int	i;
-
-	if (NULL != psdata->table)
-	{
-		i = 0;
-		while (i < psdata->size && NULL != psdata->table[i])
-		{
-			free(psdata->table[i]);
-			i++;
-		}
-		free(psdata->table);
-	}
 	if (NULL != psdata->to_push)
 		free(psdata->to_push);
-	if (NULL != psdata->sorted)
-		free(psdata->sorted);
 	if (NULL != psdata->values)
 		free(psdata->values);
 }

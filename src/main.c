@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:45:32 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/16 15:29:40 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 13:52:05 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	ps_init_psdata(t_psdata *psdata)
 	psdata->index = 0;
 	psdata->size = 0;
 	psdata->values = NULL;
-	psdata->sorted = NULL;
 	psdata->to_push = NULL;
-	psdata->table = NULL;
 	psdata->arg_lst = NULL;
 }
 

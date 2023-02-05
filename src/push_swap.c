@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 14:50:51 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/16 15:23:54 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 15:27:46 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,46 @@ static void	ps_insert_quartile1(t_psdata *psdata, int i)
 	ps_ops_pb(psdata);
 }
 
+int	ps_get_nb_to_push(t_psdata *psdata)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (++i < psdata->size)
+	{
+		if (psdata->to_push[i] == 1)
+		count++;
+	}
+	return (count);
+}
+
 void	ps_split_values(t_psdata *psdata)
 {
 	t_stack	*tmp;
 	int		i;
+	int		nb_to_push;
 
+	nb_to_push = ps_get_nb_to_push(psdata);
 	i = -1;
 	tmp = psdata->stack_a;
-	while (++i < psdata->size)
+	while (++i < psdata->size && nb_to_push)
 	{
 		if (psdata->to_push[i] == 2)
 			continue ;
 		if (psdata->to_push[i] == 1)
 		{
 			if (tmp->nb >= psdata->quartile3)
+			{
 				ps_insert_quartile3(psdata, i);
+				nb_to_push--;
+			}
 			else if (tmp->nb <= psdata->quartile1)
+			{
 				ps_insert_quartile1(psdata, i);
+				nb_to_push--;
+			}
 			else
 				ps_ops_ra(psdata);
 		}

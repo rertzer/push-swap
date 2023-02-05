@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:18 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/12 16:43:02 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 14:48:24 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,99 @@ void	ps_push_to_b(t_psdata *psdata)
 {
 	psdata->size = ps_stack_size(psdata->stack_a);
 	ps_to_array(psdata);
-	ps_sort_array(psdata->sorted, psdata->size);
 	ps_compute_to_push(psdata);
 }
 
 void	ps_compute_to_push(t_psdata *psdata)
 {
-	psdata->size = ps_stack_size(psdata->stack_a);
-	ps_init_table(psdata);
-	ps_build_table(psdata);
-	if (0 != psdata->table[psdata->size - 1][psdata->size -1])
-		ps_assemble_to_push(psdata, psdata->size - 1, psdata->size - 1);
-}
+	int	offset;
+	int	max_offset;
 
-static void	ps_keep_pos(int *a, int *b)
-{
-	if (*a < 0)
-		*a = 0;
-	if (*b < 0)
-		*b = 0;
-}
-
-void	ps_assemble_to_push(t_psdata *psdata, int i, int j)
-{
-	ps_keep_pos(&i, &j);
-	if (psdata->values[i] == psdata->sorted[j])
+	max_offset = 0;
+	offset = -1;
+	while (++offset < psdata->size)
 	{
-		psdata->to_push[i] = 0;
-		if (i != 0 || j != 0)
-			ps_assemble_to_push(psdata, i - 1, j - 1);
+		psdata->to_push[offset] = ps_to_push_score(psdata->stack_a, offset);
+		if (psdata->to_push[offset] > psdata->to_push[max_offset])
+			max_offset = offset;
 	}
-	else
+	//fprintf(stderr, "kept : %d, offset %d\n", psdata->to_push[max_offset], max_offset);
+	ps_set_to_push(psdata, max_offset);
+}
+
+void	ps_set_to_push(t_psdata *psdata, int offset)
+{
+	int	max;
+	t_stack	*start;
+	t_stack *current;
+
+	psdata->size_a = ps_stack_size(psdata->stack_a);
+	max = ps_to_push_score(psdata->stack_a, offset);
+	offset = 0;
+	current = psdata->stack_a;
+	while (current->tp != max)
 	{
-		if (i != 0 && j != 0)
+		current = current->next;
+		offset++;
+	}
+	start = current;
+	while (current)
+	{
+		if (current->tp == max)
 		{
-			if (psdata->table[i][j - 1] > psdata->table[i - 1][j])
-				ps_assemble_to_push(psdata, i, j - 1);
-			else
-				ps_assemble_to_push(psdata, i - 1, j);
+			psdata->to_push[offset] = 0;
+			max--;
 		}
 		else
-		{
-			if (i != 0)
-				ps_assemble_to_push(psdata, i - 1, j);
-			else if (j != 0)
-				ps_assemble_to_push(psdata, i, j -1);
-		}
+			psdata->to_push[offset] = 1;
+		//fprintf(stderr, "max %d, offset %d, tp %d, topush %d\n", max, offset, current->tp, psdata->to_push[offset]);
+		current = ps_stack_next(current, start);
+		offset = (offset + 1) % psdata->size_a;
 	}
+}
+
+int	ps_to_push_score(t_stack *stack, int offset)
+{
+	int	i;
+	int	max;
+	t_stack	*current;
+	t_stack *tmp;
+
+	i = -1;
+	while (++i < offset)
+		stack = stack->next;
+	
+	stack->prev->tp = 1;
+	current = stack->prev->prev;
+	while (current)
+	{
+		tmp = current->next;
+		max = 0;
+		while (tmp)
+		{
+			if (tmp->nb > current->nb)
+				max = ps_max(max, tmp->tp);
+			tmp = ps_stack_next(tmp, stack);
+		}
+		current->tp = max + 1;
+		//fprintf(stderr, "curent max : %d\n", current->tp);
+		current = ps_stack_prev(current, stack->prev);
+	}
+	max = ps_get_tp_max(stack);
+	return (max);
+}
+
+int	ps_get_tp_max(t_stack *stack)
+{
+	int		max;
+	t_stack	*tmp;
+
+	max = stack->tp;
+	tmp = stack;
+	while (tmp)
+	{
+		max = ps_max(max, tmp->tp);
+		tmp = ps_stack_next(tmp, stack);
+	}
+	return (max);
 }

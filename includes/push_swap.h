@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:35:07 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/15 18:35:34 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 15:08:56 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include <limits.h>
 # include <stdio.h>
 
+# define DP fprintf(stderr, "%s %d\n", __FILE__, __LINE__);
+
 typedef struct s_stack
 {
 	int				nb;
+	int				tp;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -40,9 +43,7 @@ typedef struct s_psdata
 	int		index;
 	int		size;
 	int		*values;
-	int		*sorted;
 	int		*to_push;
-	int		**table;
 	char	**arg_lst;
 }	t_psdata;
 
@@ -70,17 +71,16 @@ int			*ps_get_sorted_array(t_psdata *psdata, int *size);
 int			*ps_malloc_array(t_psdata *psdata, int size);
 void		ps_to_array(t_psdata *psdata);
 void		ps_sort_array(int *tab, int size);
-/* table*/
-void		ps_init_table(t_psdata *psdata);
-void		ps_build_table(t_psdata *psdata);
-int			ps_table_max(int **table, int i, int j);
 /* push swap */
 void		ps_first_top(t_psdata *psdata);
 void		ps_split_values(t_psdata *psdata);
+int			ps_get_nb_to_push(t_psdata *psdata);
 /* to_push */
 void		ps_push_to_b(t_psdata *psdata);
 void		ps_compute_to_push(t_psdata *psdata);
-void		ps_assemble_to_push(t_psdata *psdata, int i, int j);
+void		ps_set_to_push(t_psdata *psata, int offset);
+int			ps_to_push_score(t_stack *stack, int offset);
+int			ps_get_tp_max(t_stack *stack);
 /* insert back */
 void		ps_insert_back(t_psdata *psdata);
 void		ps_insert_back_next(t_psdata *psdata);
@@ -96,6 +96,7 @@ void		ps_stack_add_back(t_psdata *psdata, t_stack **stack, int nb);
 t_stack		*ps_stack_new(t_psdata *psdata, int nb);
 t_stack		*ps_stack_last(t_stack *stack);
 t_stack		*ps_stack_next(t_stack *tmp, t_stack *stack);
+t_stack		*ps_stack_prev(t_stack *tmp, t_stack *stack);
 int			ps_stack_size(t_stack *stack);
 /* min max */
 void		swap(int *a, int *b);

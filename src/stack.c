@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 13:25:36 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/14 11:03:44 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/05 13:16:59 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_stack	*ps_stack_new(t_psdata *psdata, int nb)
 	if (NULL == new)
 		ps_quit(psdata, 1);
 	new->nb = nb;
+	new->tp = 1;
 	new->prev = new;
 	new->next = new;
 	return (new);
@@ -77,6 +78,14 @@ t_stack	*ps_stack_next(t_stack *tmp, t_stack *stack)
 {
 	if (tmp != NULL && tmp->next != stack)
 		return (tmp->next);
+	else
+		return (NULL);
+}
+
+t_stack	*ps_stack_prev(t_stack *tmp, t_stack *stack)
+{
+	if (tmp != NULL && tmp->prev != stack)
+		return (tmp->prev);
 	else
 		return (NULL);
 }

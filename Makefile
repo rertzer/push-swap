@@ -35,7 +35,6 @@ SOURCES = arrays.c\
 	run.c\
 	run_little.c\
 	stack.c\
-	table.c\
 	to_push.c
 
 BONUS_SOURCES = check_bonus.c\
