@@ -1,11 +1,11 @@
 # push-swap
 Ecole 42 project
 ## number of moves :
-| numbers to sort | mean moves | (min-max)|
-|---------:|------------:|:----------:|
-| 5 | 8 | (4-10) |
-| 100 | 535 | (452-607) |
-| 500  | 4040 | (3782-4322) |
+| numbers to sort | mean moves |
+|---------:|------------:|
+| 5 | 6 |
+| 100 | 531 |
+| 500  | 4021 |
    
 ## usage :
 ```
