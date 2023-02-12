@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:19:29 by rertzer           #+#    #+#             */
-/*   Updated: 2023/02/05 15:11:53 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/12 10:43:35 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ps_run(t_psdata *psdata)
 		return ;
 	else if (psdata->size == 2)
 		ps_run_two(psdata);
-	else if (psdata->size <= 5)
+	else if (psdata->size <= MINI)
 		ps_run_small(psdata);
 	else if (psdata->size < 200)
 		ps_run_medium(psdata);

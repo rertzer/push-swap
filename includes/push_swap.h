@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:35:07 by rertzer           #+#    #+#             */
-/*   Updated: 2023/02/05 17:45:43 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/12 11:36:56 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdio.h>
 
 # define DP fprintf(stderr, "%s %d\n", __FILE__, __LINE__);
+
+/* number of different strategies to push back */
+# define STRAT_NB 4
+
+/* max number to use run_little instead of run_medium */
+# define MINI 5
 
 typedef struct s_stack
 {
@@ -65,6 +71,9 @@ void		ps_run_large(t_psdata *psdata);
 void		ps_run_small(t_psdata *psdata);
 void		ps_run_two(t_psdata *psdata);
 void		ps_run_three(t_psdata *psdata);
+/* simplify */
+void		ps_simplify_del_two(t_psdata *psdata, char *fisrt, char *second);
+void		ps_simplify_shift(char **sm, int start, int offset);
 void		ps_simplify(t_psdata *psdata);
 /* quartile */
 void		ps_quartile(t_psdata *psdata);
@@ -94,6 +103,7 @@ void		ps_insert_back_strat_zero(t_psdata *psdata);
 void		ps_insert_back_strat_one(t_psdata *psdata);
 void		ps_insert_back_strat_two(t_psdata *psdata);
 void		ps_insert_back_strat_three(t_psdata *psdata);
+void		ps_insert_back_strat_four(t_psdata *psdata);
 /* stack */
 void		ps_stack_add_back(t_psdata *psdata, t_stack **stack, int nb);
 t_stack		*ps_stack_new(t_psdata *psdata, int nb);

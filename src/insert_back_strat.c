@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 09:26:09 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/14 09:32:40 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/12 11:22:12 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,10 @@ void	ps_insert_back_strat_three(t_psdata *psdata)
 	while (psdata->stack_b != psdata->next2move)
 		ps_ops_rb(psdata);
 	ps_ops_pa(psdata);
+}
+
+void	ps_insert_back_strat_four(t_psdata *psdata)
+{
+	ps_ops_pa(psdata);
+	ps_ops_sa(psdata);
 }

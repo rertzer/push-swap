@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:16:07 by rertzer           #+#    #+#             */
-/*   Updated: 2023/02/05 18:20:08 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/12 10:15:38 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,60 +29,6 @@ void	ps_run_small(t_psdata *psdata)
 	{
 		if (psdata->small_moves[i])
 			ft_putendl_fd(psdata->small_moves[i], 1);
-	}
-}
-
-void	ps_simplify(t_psdata *psdata)
-{
-	int	i;
-	char	**sm;
-
-	sm = psdata->small_moves;
-	i = -1;
-	while (++i < 11)
-	{
-		if (sm[i] && sm[i + 1] && !ft_strncmp(sm[i], "rra", 4) && !ft_strncmp(sm[i + 1], "ra", 4))
-		{
-			sm[i] = NULL;
-			sm[i + 1] = NULL;
-		}
-	}
-	i = -1;
-	while (++i < 11)
-	{
-		if (sm[i] && sm[i + 1] && !ft_strncmp(sm[i], "ra", 4) && !ft_strncmp(sm[i + 1], "rra", 4))
-		{
-			sm[i] = NULL;
-			sm[i + 1] = NULL;
-		}
-	}
-	i = -1;
-	while (++i < 11)
-	{
-		if (sm[i] && sm[i + 1] && !ft_strncmp(sm[i], "pb", 4) && !ft_strncmp(sm[i + 1], "pa", 4))
-		{
-			sm[i] = NULL;
-			sm[i + 1] = NULL;
-		}
-	}
-	i = -1;
-	while (++i < 9)
-	{
-		if (sm[i] && sm[i + 3] && !ft_strncmp(sm[i], "pb", 4) && sm[i + 1] == NULL && sm[i + 2] == NULL && !ft_strncmp(sm[i + 3], "pa", 4))
-		{
-			sm[i] = NULL;
-			sm[i + 3] = NULL;
-		}
-	}
-	i = -1;
-	while (++i < 10)
-	{
-		if (sm[i] && sm[i + 1] && sm[i + 2] && !ft_strncmp(sm[i], "ra", 4) && !ft_strncmp(sm[i + 1], "pa", 4) && !ft_strncmp(sm[i + 2], "rra", 4))
-		{
-			sm[i] = "pa";
-			sm[i + 1] = "sa";
-			sm[i + 2] = NULL;
-		}
 	}
 }
 

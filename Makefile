@@ -34,6 +34,7 @@ SOURCES = arrays.c\
 	quartile.c\
 	run.c\
 	run_little.c\
+	simplify.c \
 	stack.c\
 	to_push.c
 

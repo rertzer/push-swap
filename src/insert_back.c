@@ -6,7 +6,7 @@
 /*   By: rertzer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:44:21 by rertzer           #+#    #+#             */
-/*   Updated: 2023/01/14 09:37:51 by rertzer          ###   ########.fr       */
+/*   Updated: 2023/02/12 11:37:35 by rertzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ps_insert_back(t_psdata *psdata)
 {
-	void	*strat[4];
+	void	*strat[STRAT_NB];
 	t_fun	ib_strat;
 
 	strat[0] = ps_insert_back_strat_zero;
@@ -73,7 +73,7 @@ int	ps_calculate_min_steps(t_psdata *psdata, t_stack *tmp, int index)
 	int	step_ar;
 	int	step_arr;
 	int	step_brr;
-	int	min[4];
+	int	min[STRAT_NB];
 	int	strat;
 
 	step_brr = psdata->size_b - index;
@@ -83,7 +83,7 @@ int	ps_calculate_min_steps(t_psdata *psdata, t_stack *tmp, int index)
 	min[1] = ps_max(step_arr, step_brr);
 	min[2] = step_ar + step_brr;
 	min[3] = step_arr + index;
-	strat = ps_min_strat(min, 4);
+	strat = ps_min_strat(min, STRAT_NB);
 	psdata->index = strat;
 	return (min[strat]);
 }
